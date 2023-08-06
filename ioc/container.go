@@ -17,11 +17,6 @@ func NewContainer() *Container {
 	}
 }
 
-// Register must pass in the non-pointer instantiated struct
-// and the factory function returning a pointer to the
-// passed in v struct
-// TODO: This must work given an interfaces.
-// Just pass in factory, deduce the type from the factory return type.
 func (c *Container) Register(factory any) error {
 	rfFunc := reflect.ValueOf(factory)
 	if rfFunc.Kind() != reflect.Func {

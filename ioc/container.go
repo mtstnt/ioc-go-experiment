@@ -46,7 +46,11 @@ func resolveFactory(c *Container, factory any) (any, error) {
 	params := make([]reflect.Value, 0)
 	for i := 0; i < paramsCount; i++ {
 		paramType := rfFuncType.In(i)
-		paramFqName := fmt.Sprintf("%s/%s", paramType.Elem().PkgPath(), paramType.Elem().Name())
+		for paramType.Kind() == reflect.Ptr {
+			paramType = paramType.Elem()
+		}
+		paramFqName := fmt.Sprintf("%s/%s", paramType.PkgPath(),
+			paramType.Name())
 		paramFactory, has := c.store[paramFqName]
 		if !has {
 			return nil, fmt.Errorf("no factory of %s is stored", paramFqName)

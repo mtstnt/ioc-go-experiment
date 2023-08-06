@@ -1,3 +1,4 @@
+# IoC Go Experiment
 A simple experiment to build a convenient runtime IoC container for dependency injection.
 
 Current approach:
@@ -19,3 +20,7 @@ Pros:
 Cons:
 - Cold start overhead due to reflection (not benchmarked yet)
 - Might not work with high amount of dependencies that needs to be build, because this uses recursion.
+
+To add:
+- Multiple types of dependency provision: lazy (construct for each injection), singleton (construct once,
+use the instance for all), etc.
